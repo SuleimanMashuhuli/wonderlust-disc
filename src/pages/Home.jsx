@@ -1,130 +1,213 @@
-import bannerImg from '../components/1.jpg';
-import Img from '../components/elephanty.jpg'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { tours, testimonials, companyInfo } from '../data/tours';
+import { dianiHotelsData } from '../data/dianiHotels';
+import TourCard from '../components/TourCard';
+import TestimonialCard from '../components/TestimonialCard';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
+import bannerImg from '../components/1.jpg';
 
 export default function Home() {
+    const [searchForm, setSearchForm] = useState({
+        search: '',
+        dates: '',
+        travelers: 1
+    });
+
+    const featuredTours = tours.filter(tour => tour.featured).slice(0, 3);
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        const searchTerm = searchForm.search.trim().toLowerCase();
+        
+        if (searchTerm) {
+            const matchingHotel = dianiHotelsData.find(hotel => 
+                hotel.name.toLowerCase().includes(searchTerm)
+            );
+            const matchingTour = tours.find(tour => 
+                tour.title.toLowerCase().includes(searchTerm) ||
+                tour.destination.toLowerCase().includes(searchTerm)
+            );
+            
+            if (matchingHotel) {
+                window.location.href = `/hotels?search=${encodeURIComponent(searchForm.search)}`;
+            } else if (matchingTour) {
+                window.location.href = `/tours?search=${encodeURIComponent(searchForm.search)}`;
+            } else {
+                window.location.href = `/tours?search=${encodeURIComponent(searchForm.search)}`;
+            }
+        } else {
+            window.location.href = '/tours';
+        }
+    };
+
+    const handleInputChange = (e) => {
+        setSearchForm(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
     return (
         <>
             <Header />
 
-            {/* -- HOME SECTION --- */}
+            {/* Hero Section */}
             <section
-                className="relative w-full min-h-screen p-[100px] flex items-center justify-between transition-all duration-500 bg-cover bg-center z-10"
+                className="relative w-full min-h-screen flex items-center justify-center transition-all duration-500 bg-cover bg-center z-10"
                 style={{
                     backgroundImage: `url(${bannerImg})`,
                 }}
             >
-
                 <div className="absolute inset-0 bg-black/50 z-0" />
 
-
-                <div className="relative z-10 max-w-4xl text-white">
-                    <h2 className="text-[5em] font-extrabold leading-[1em] uppercase">Hiazoo Safari's</h2>
-                    <h3 className="text-[4em] font-bold leading-[1em] uppercase">Explore New Discoveries</h3>
-                    <p className="text-[1.1em] my-5 font-normal max-w-[700px] text-justify">
-                        Discover Africa’s untamed beauty with Hiazoo Safaris — where every journey is a story, and every moment leaves you breathless.
-                        Embark on a journey with our Safaris, where every trail leads to wonder and every moment sparks discovery.
-                        From the sun-drenched savannahs of the Shimba Hills to the hidden oases, we craft immersive experiences that go beyond sightseeing.
+                <div className="relative z-10 max-w-6xl mx-auto px-4 text-center text-white">
+                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                        Discover Your Next Adventure
+                    </h1>
+                    <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                        Experience Africa's wild beauty with Hiazoo Safaris — where every journey is a story, and every moment leaves you breathless.
                     </p>
-                    <a
-                        href="#"
-                        className="inline-block text-[1em] bg-red-500 hover:bg-red-600 px-[30px] py-[10px] uppercase font-medium mt-[10px] text-white tracking-[2px] transition-all duration-200"
+                    
+                    {/* Search Bar */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-4xl mx-auto">
+                        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <input
+                                type="text"
+                                name="search"
+                                value={searchForm.search}
+                                onChange={handleInputChange}
+                                placeholder="Search tours, hotels, destinations..."
+                                className="p-3 rounded-lg text-gray-800 focus:ring-2 focus:ring-red-500"
+                            />
+                            <input
+                                type="date"
+                                name="dates"
+                                value={searchForm.dates}
+                                onChange={handleInputChange}
+                                className="p-3 rounded-lg text-gray-800 focus:ring-2 focus:ring-red-500"
+                            />
+                            <select
+                                name="travelers"
+                                value={searchForm.travelers}
+                                onChange={handleInputChange}
+                                className="p-3 rounded-lg text-gray-800 focus:ring-2 focus:ring-red-500"
+                            >
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                                    <option key={num} value={num}>{num} {num === 1 ? 'Traveler' : 'Travelers'}</option>
+                                ))}
+                            </select>
+                            <button
+                                type="submit"
+                                className="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
+                            >
+                                Search
+                            </button>
+                        </form>
+                    </div>
+
+                    <Link
+                        to="/tours"
+                        className="inline-block bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
                     >
-                        Explore
-                    </a>
+                        Explore All Tours
+                    </Link>
                 </div>
             </section>
 
-            {/* -- EXPLORE EXPERIENCES --- */}
-            <section className="py-20 px-40 bg-gray-200">
-                <h3 className="justify-center items-center flex mb-20 font-bold text-[3em]">WHAT WE OFFER</h3>
-
-                <div className="px-40 grid gap-10">
-                    <div className="flex justify-between gap-5 bg-white rounded-xl shadow-lg shadow-black/50 h-[300px]">
-                        <div className="w-[40%] py-5 px-5">
-                            <img src="gamedrive1.jpg" alt="" className="rounded-xl w-full h-full object-cover" />
-                        </div>
-                        <div className="w-[60%] py-5 px-5 flex flex-col justify-between">
-                            <h1 className='font-semibold py-5 text-xl mb-4'>GAME DRIVES</h1>
-                            <p className="text-gray-800 text-justify">
-                                Experience the thrill of the wild on our expertly guided game drives.
-                                Traverse vast landscapes in search of Africa's iconic wildlife, from majestic lions and towering elephants to elusive leopards.
-                                Whether at sunrise or sunset, every moment on the trail promises breathtaking encounters and unforgettable memories.
-                            </p>
-                            <a href="#"
-                                className="self-start px-[30px] py-[10px] uppercase font-medium text-white tracking-[2px] transition-all duration-200 text-[1em] bg-red-500 hover:bg-red-600 mt-5"
-                            >
-                                Learn More
-                            </a>
-                        </div>
+            {/* Featured Tours Section */}
+            <section className="py-20 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Featured Tours</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Discover our most popular safari experiences, carefully crafted to provide unforgettable adventures.
+                        </p>
                     </div>
 
-                    <div className="flex justify-between gap-5 bg-white rounded-xl shadow-lg shadow-black/50 h-[300px]">
-                        <div className="w-[60%] py-5 px-5 flex flex-col justify-between">
-                            <h1 className='font-semibold py-5 text-xl mb-4'>SKY DIVING</h1>
-                            <p className="text-gray-800 text-justify">
-                                Take adventure to new heights with our exciting skydiving trips.
-                                Fly high above the land and feel the rush as you jump and fall through the air.
-                                This thrilling activity gives you amazing views and a feeling of total freedom.
-                            </p>
-                            <a href=""
-                                className="self-start px-[30px] py-[10px] uppercase font-medium text-white tracking-[2px] transition-all duration-200 text-[1em] bg-red-500 hover:bg-red-600 mt-5"
-                            >
-                                Learn More
-                            </a>
-                        </div>
-                        <div className="w-[40%] py-5 px-5">
-                            <img src="sky1.jpg" alt="" className="rounded-xl w-full h-full object-cover" />
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {featuredTours.map(tour => (
+                            <TourCard key={tour.id} tour={tour} />
+                        ))}
                     </div>
 
-                    <div className="flex justify-between gap-5 bg-white rounded-xl shadow-lg shadow-black/50 h-[300px]">
-                        <div className='w-[40%] py-5 px-5'>
-                            <img src="bornfire1.jpg" alt="" className="rounded-xl w-full h-full object-cover" />
-                        </div>
-                        <div className="w-[60%] py-5 px-5 flex flex-col justify-between">
-                            <h1 className="font-semibold py-5 text-xl mb-4">BONFIRE CAMPS</h1>
-                            <p className="text-gray-800 text-justify">
-                                Relax under the stars at our cozy bonfire camps.
-                                Sit by the fire, tell stories, enjoy hot drinks, and try local foods.
-                                In the quiet of nature, these evenings are perfect for sharing moments with others and feeling at peace.
-                            </p>
-                            <a href=""
-                                className="self-start px-[30px] py-[10px] uppercase font-medium text-white tracking-[2px] transition-all duration-200 text-[1em] bg-red-500 hover:bg-red-600 mt-5"
-                            >
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-between gap-5 bg-white rounded-xl shadow-lg shadow-black/50 h-[300px]">
-                        <div className=" w-[60%] py-5 px-5 flex flex-col justify-between">
-                            <h1 className="font-semibold py-5 text-xl mb-4">PARK WALK</h1>
-                            <p className="text-gray-800 text-justify">
-                                Depending on where the nature walks will be conducted, it is possible to see plenty of wildlife not to mention a rich diversity of Birds, flora and fauna.
-                                Walks are done by experienced and trained guides and these guides often happen to be local Maasai who have the advantage of being born and bred in the very region that you are exploring.
-                            </p>
-                            <a
-                                href=""
-                                className="self-start px-[30px] py-[10px] uppercase font-medium text-white tracking-[2px] transition-all duration-200 text-[1em] bg-red-500 hover:bg-red-600 mt-5"
-                            >
-                                Learn More
-                            </a>
-                        </div>
-                        <div className='w-[40%] py-5 px-5'>
-                            <img src="parkwalk2.jpg" alt="" className="rounded-xl w-full h-full object-cover" />
-                        </div>
+                    <div className="text-center mt-12">
+                        <Link
+                            to="/tours"
+                            className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+                        >
+                            View All Tours
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* -- ACCOMMODATIONS --- */}
-            <section className="bg-teal-200">
+            {/* Why Choose Us Section */}
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Hiazoo Safaris</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            We're committed to providing exceptional safari experiences that go beyond your expectations.
+                        </p>
+                    </div>
 
-                
-                <h1>ACCOMODATIONS</h1>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {companyInfo.values.map((value, index) => (
+                            <div key={index} className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                                <div className="text-5xl mb-4">{value.icon}</div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-3">{value.title}</h3>
+                                <p className="text-gray-600">{value.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
-            {/* -- EVENTS --- */}
+
+            {/* Testimonials Section */}
+            <section className="py-20 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">What Our Guests Say</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Don't just take our word for it. Here's what our guests have to say about their safari experiences.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {testimonials.map(testimonial => (
+                            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Call to Action */}
+            <section className="py-20 bg-red-500">
+                <div className="max-w-4xl mx-auto px-4 text-center text-white">
+                    <h2 className="text-4xl font-bold mb-6">Ready to Start Your Adventure?</h2>
+                    <p className="text-xl mb-8">
+                        Join thousands of travelers who have experienced the magic of Africa with Hiazoo Safaris.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link
+                            to="/tours"
+                            className="bg-white text-red-500 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
+                        >
+                            Browse Tours
+                        </Link>
+                        <Link
+                            to="/contact"
+                            className="border-2 border-white text-white hover:bg-white hover:text-red-500 px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
+                        >
+                            Contact Us
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
         </>
     );
 }
