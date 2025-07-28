@@ -67,7 +67,7 @@ export default function Home() {
                         Discover Your Next Adventure
                     </h1>
                     <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        Experience Africa's wild beauty with Hiazoo Safaris — where every journey is a story, and every moment leaves you breathless.
+                        Experience Africa's wild beauty with  Digo Nomads Safaris — where every journey is a story, and every moment leaves you breathless.
                     </p>
                     
                     {/* Search Bar */}
@@ -147,7 +147,7 @@ export default function Home() {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
-                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Hiazoo Safaris</h2>
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose  Digo Nomads Safaris</h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             We're committed to providing exceptional safari experiences that go beyond your expectations.
                         </p>
@@ -188,7 +188,7 @@ export default function Home() {
                 <div className="max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 className="text-4xl font-bold mb-6">Ready to Start Your Adventure?</h2>
                     <p className="text-xl mb-8">
-                        Join thousands of travelers who have experienced the magic of Africa with Hiazoo Safaris.
+                        Join thousands of travelers who have experienced the magic of Africa with  Digo Nomads Safaris.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link

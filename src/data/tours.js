@@ -915,7 +915,7 @@ export const testimonials = [
 ];
 
 export const companyInfo = {
-  name: "Hiazoo Safaris",
+  name: " Digo Nomads Safaris",
   mission: "To provide unforgettable safari experiences that connect travelers with Africa's wild beauty while promoting conservation and sustainable tourism.",
   values: [
     {
@@ -941,7 +941,7 @@ export const companyInfo = {
   ],
   contact: {
     phone: "+254 700 123 456",
-    email: "info@hiazoo-safaris.com",
+    email: "info@digonomads-safaris.com",
     address: "Nairobi, Kenya",
     social: {
       facebook: "https://facebook.com/hiazoosafaris",

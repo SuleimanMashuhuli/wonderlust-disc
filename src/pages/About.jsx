@@ -11,7 +11,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">About Hiazoo Safaris</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">About Digo Nomads Safaris</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We are passionate about creating unforgettable safari experiences that connect travelers with Africa's wild beauty while promoting conservation and sustainable tourism.
             </p>
@@ -23,10 +23,10 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <p className="text-gray-600 mb-4">
-                  Founded in 2010, Hiazoo Safaris began with a simple mission: to share the incredible beauty and diversity of Africa with the world. What started as a small family operation has grown into one of East Africa's most trusted safari companies.
+                  Founded in 2010, Digo Nomads Safaris began with a simple mission: to share the incredible beauty and diversity of Africa with the world. What started as a small family operation has grown into one of East Africa's most trusted safari companies.
                 </p>
                 <p className="text-gray-600 mb-4">
-                  Our founder, John Hiazoo, grew up in the shadow of Mount Kenya, spending his childhood exploring the vast landscapes and learning about wildlife from local Maasai guides. This deep connection to the land and its people inspired him to create safari experiences that go beyond simple tourism.
+                  Our founder, Suleiman Ali, grew up in the shadow of Mount Kenya, spending his childhood exploring the vast landscapes and learning about wildlife from local Maasai guides. This deep connection to the land and its people inspired him to create safari experiences that go beyond simple tourism.
                 </p>
                 <p className="text-gray-600">
                   Today, we work with over 50 experienced guides and partner with the finest lodges and camps across Kenya and Tanzania. Our commitment to sustainable tourism means that every safari we operate contributes to local conservation efforts and community development.
